@@ -1,7 +1,7 @@
-package com.example.videocreator.service.impl;
+package org.example.videocreator.service.impl;
 
-import com.example.videocreator.service.FileAggregatorService;
-import com.example.videocreator.service.VideoCreatorService;
+import org.example.videocreator.service.FileAggregatorService;
+import org.example.videocreator.service.VideoCreatorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,11 +21,15 @@ public class FileLinkAggregatorServiceServiceImpl implements FileAggregatorServi
     public synchronized void addFileLink(String correlationId, String fileType, String fileUrl) {
         fileStorage.putIfAbsent(correlationId, new ConcurrentHashMap<>());
         Map<String, String> files = fileStorage.get(correlationId);
+
         files.put(fileType, fileUrl);
         log.info("Added file. correlationId={}, fileType={}, fileUrl={}", correlationId, fileType, fileUrl);
+
         if (files.keySet().containsAll(requiredFileTypes)) {
             videoCreatorService.createVideo(files, correlationId);
             fileStorage.remove(correlationId);
         }
+
     }
+
 }

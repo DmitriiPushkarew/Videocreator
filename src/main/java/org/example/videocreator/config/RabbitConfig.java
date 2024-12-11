@@ -1,4 +1,4 @@
-package com.example.videocreator.config;
+package org.example.videocreator.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -10,14 +10,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-
     @Value("${videocreator.rabbit.exchange}")
     private String exchangeName;
 
     @Value("${videocreator.rabbit.queue}")
     private String queueName;
 
-    @Value("${videocreator.rabbit.routingKey}")
+    @Value("${videocreator.rabbit.routing-key}")
     private String routingKey;
 
     @Bean
@@ -34,4 +33,5 @@ public class RabbitConfig {
     public Binding fileLinksBinding(Queue fileLinksQueue, DirectExchange fileLinksExchange) {
         return BindingBuilder.bind(fileLinksQueue).to(fileLinksExchange).with(routingKey);
     }
+
 }

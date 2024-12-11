@@ -1,4 +1,4 @@
-package com.example.videocreator.dto;
+package org.example.videocreator.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -13,4 +13,5 @@ public class FileMessageDto {
 
     @JsonProperty("fileUrl")
     private String fileUrl;
+
 }

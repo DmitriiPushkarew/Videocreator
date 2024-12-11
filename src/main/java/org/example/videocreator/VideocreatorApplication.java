@@ -1,4 +1,4 @@
-package com.example.videocreator;
+package org.example.videocreator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -7,8 +7,9 @@ spring:
 
 videocreator:
   rabbit:
-    exchange: links_exchange
-    queue: file_links_queue
-    routingKey: links_rk
+    exchange: "links_exchange"
+    queue: "file_links_queue"
+    routing-key: "links_rk"
+
 server:
   port: 8084
