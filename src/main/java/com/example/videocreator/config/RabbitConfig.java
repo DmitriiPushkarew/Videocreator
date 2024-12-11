@@ -21,17 +21,17 @@ public class RabbitConfig {
     private String routingKey;
 
     @Bean
-    public DirectExchange fileLinkExchange() {
+    public DirectExchange fileLinksExchange() {
         return new DirectExchange(exchangeName, true, false);
     }
 
     @Bean
-    public Queue fileLinkQueue() {
+    public Queue fileLinksQueue() {
         return new Queue(queueName, true, false, false);
     }
 
     @Bean
-    public Binding fileLinkBinding(Queue fileQueue, DirectExchange fileLinksExchange) {
-        return BindingBuilder.bind(fileQueue).to(fileLinksExchange).with(routingKey);
+    public Binding fileLinksBinding(Queue fileLinksQueue, DirectExchange fileLinksExchange) {
+        return BindingBuilder.bind(fileLinksQueue).to(fileLinksExchange).with(routingKey);
     }
 }

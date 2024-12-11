@@ -1,4 +1,4 @@
-package com.example.videocreator.service;
+package com.example.videocreator.service.impl;
 
 
 import com.example.videocreator.dto.FileMessageDto;
@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class FileLinksListener {
-
     private final ObjectMapper objectMapper;
-    private final VideoCreationAggregatorService aggregator;
+    private final FileLinkAggregatorServiceServiceImpl aggregator;
 
     @RabbitListener(queues = "${videocreator.rabbit.queue}")
     public void onMessage(String message) {
         try {
             FileMessageDto dto = objectMapper.readValue(message, FileMessageDto.class);
-            aggregator.addFile(dto.getCorrelationId(), dto.getFileType(), dto.getFileUrl());
+            aggregator.addFileLink(dto.getCorrelationId(), dto.getFileType(), dto.getFileUrl());
+            log.info("Message processed for correlationId={}", dto.getCorrelationId());
         } catch (Exception e) {
-            log.error("Failed to parse message", e);
+            log.error("Failed to parse and process message: {}", message, e);
         }
     }
 }
